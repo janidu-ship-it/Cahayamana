@@ -21,7 +21,7 @@ $(function () {
     const options = {
         containers: ['#swupMain', '#swupMenu'],
         animateHistoryBrowsing: true,
-        linkSelector: 'a:not([data-no-swup])',
+        linkSelector: 'a:not([data-no-swup]):not([href^="#"])',
         animationSelector: '[class="mil-main-transition"]'
     };
     const swup = new Swup(options);
@@ -128,7 +128,18 @@ $(function () {
     $(document).on('click', 'a[href^="#"]', function (event) {
         event.preventDefault();
 
-        var target = $($.attr(this, 'href'));
+        var href = $(this).attr('href');
+        var target;
+
+        if (!href || href === '#' || href === '#.') {
+            return;
+        }
+
+        target = $(href);
+        if (!target.length) {
+            return;
+        }
+
         var offset = 0;
 
         if ($(window).width() < 1200) {
@@ -145,7 +156,8 @@ $(function () {
 
     ***************************/
     $(document).ready(function () {
-        $(".mil-arrow").clone().appendTo(".mil-arrow-place");
+        $(".mil-arrow-place .mil-arrow").remove();
+        $(".mil-hidden-elements > .mil-arrow").clone().appendTo(".mil-arrow-place");
         $(".mil-dodecahedron").clone().appendTo(".mil-animation");
         $(".mil-lines").clone().appendTo(".mil-lines-place");
         $(".mil-main-menu ul li.mil-active > a").clone().appendTo(".mil-current-page");
@@ -710,7 +722,7 @@ $(function () {
         ***************************/
         $(document).ready(function () {
             $(".mil-arrow-place .mil-arrow, .mil-animation .mil-dodecahedron, .mil-current-page a").remove();
-            $(".mil-arrow").clone().appendTo(".mil-arrow-place");
+            $(".mil-hidden-elements > .mil-arrow").clone().appendTo(".mil-arrow-place");
             $(".mil-dodecahedron").clone().appendTo(".mil-animation");
             $(".mil-lines").clone().appendTo(".mil-lines-place");
             $(".mil-main-menu ul li.mil-active > a").clone().appendTo(".mil-current-page");
@@ -1264,7 +1276,18 @@ $(function () {
     $(document).on('click', 'a[href^="#"]', function (event) {
         event.preventDefault();
 
-        var target = $($.attr(this, 'href'));
+        var href = $(this).attr('href');
+        var target;
+
+        if (!href || href === '#' || href === '#.') {
+            return;
+        }
+
+        target = $(href);
+        if (!target.length) {
+            return;
+        }
+
         var offset = 0;
 
         if ($(window).width() < 1200) {
@@ -1281,7 +1304,8 @@ $(function () {
 
     ***************************/
     $(document).ready(function () {
-        $(".mil-arrow").clone().appendTo(".mil-arrow-place");
+        $(".mil-arrow-place .mil-arrow").remove();
+        $(".mil-hidden-elements > .mil-arrow").clone().appendTo(".mil-arrow-place");
         $(".mil-dodecahedron").clone().appendTo(".mil-animation");
         $(".mil-lines").clone().appendTo(".mil-lines-place");
         $(".mil-main-menu ul li.mil-active > a").clone().appendTo(".mil-current-page");
@@ -1846,7 +1870,7 @@ $(function () {
         ***************************/
         $(document).ready(function () {
             $(".mil-arrow-place .mil-arrow, .mil-animation .mil-dodecahedron, .mil-current-page a").remove();
-            $(".mil-arrow").clone().appendTo(".mil-arrow-place");
+            $(".mil-hidden-elements > .mil-arrow").clone().appendTo(".mil-arrow-place");
             $(".mil-dodecahedron").clone().appendTo(".mil-animation");
             $(".mil-lines").clone().appendTo(".mil-lines-place");
             $(".mil-main-menu ul li.mil-active > a").clone().appendTo(".mil-current-page");
