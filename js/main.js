@@ -13,6 +13,12 @@ $(function () {
 
     "use strict";
 
+    if (window.__cahayamanaInitialized) {
+        return;
+    }
+
+    window.__cahayamanaInitialized = true;
+
     document.addEventListener('click', function (event) {
         var link = event.target.closest('a');
 
