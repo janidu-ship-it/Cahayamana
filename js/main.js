@@ -13,6 +13,15 @@ $(function () {
 
     "use strict";
 
+    document.addEventListener('click', function (event) {
+        var link = event.target.closest('a');
+
+        if (link && link.getAttribute('href') === '#.') {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+        }
+    }, true);
+
     /***************************
 
     swup
