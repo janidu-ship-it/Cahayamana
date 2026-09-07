@@ -26,6 +26,16 @@ $(function () {
             event.preventDefault();
             event.stopImmediatePropagation();
         }
+
+        var menuButton = event.target.closest('.mil-menu-btn');
+        if (menuButton) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            document.querySelectorAll('.mil-menu-btn').forEach(function (button) {
+                button.classList.toggle('mil-active');
+            });
+            document.querySelector('.mil-menu-frame').classList.toggle('mil-active');
+        }
     }, true);
 
     /***************************
