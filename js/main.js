@@ -20,17 +20,9 @@ $(function () {
     window.__cahayamanaInitialized = true;
 
     document.addEventListener('click', function (event) {
-        var link = event.target.closest('a');
-
-        if (link && link.getAttribute('href') === '#.') {
-            event.preventDefault();
-            event.stopImmediatePropagation();
-        }
-
         var menuButton = event.target.closest('.mil-menu-btn');
         if (menuButton) {
             event.preventDefault();
-            event.stopImmediatePropagation();
             document.querySelectorAll('.mil-menu-btn').forEach(function (button) {
                 button.classList.toggle('mil-active');
             });
@@ -156,12 +148,12 @@ $(function () {
         var href = $(this).attr('href');
         var target;
 
-        if (!href || href === '#' || href === '#.') {
+        if (!href || href === '#' || href === '#.' || href.charAt(0) !== '#') {
             return;
         }
 
-        target = $(href);
-        if (!target.length) {
+        target = document.querySelector(href);
+        if (!target) {
             return;
         }
 
@@ -171,9 +163,10 @@ $(function () {
             offset = 90;
         }
 
-        $('html, body').animate({
-            scrollTop: target.offset().top - offset
-        }, 400);
+        window.scrollTo({
+            top: Math.max(0, target.getBoundingClientRect().top + window.scrollY - offset),
+            behavior: 'smooth'
+        });
     });
     /***************************
 
@@ -423,17 +416,13 @@ $(function () {
      menu
 
     ***************************/
-    $('.mil-menu-btn').on("click", function () {
-        $('.mil-menu-btn').toggleClass('mil-active');
-        $('.mil-menu').toggleClass('mil-active');
-        $('.mil-menu-frame').toggleClass('mil-active');
-    });
     /***************************
 
     main menu
 
     ***************************/
-    $('.mil-has-children a').on('click', function () {
+    $(document).on('click', '.mil-has-children > a', function (event) {
+        event.preventDefault();
         $('.mil-has-children ul').removeClass('mil-active');
         $('.mil-has-children a').removeClass('mil-active');
         $(this).toggleClass('mil-active');
@@ -1571,22 +1560,11 @@ $(function () {
      menu
 
     ***************************/
-    $('.mil-menu-btn').on("click", function () {
-        $('.mil-menu-btn').toggleClass('mil-active');
-        $('.mil-menu').toggleClass('mil-active');
-        $('.mil-menu-frame').toggleClass('mil-active');
-    });
     /***************************
 
     main menu
 
     ***************************/
-    $('.mil-has-children a').on('click', function () {
-        $('.mil-has-children ul').removeClass('mil-active');
-        $('.mil-has-children a').removeClass('mil-active');
-        $(this).toggleClass('mil-active');
-        $(this).next().toggleClass('mil-active');
-    });
     /***************************
 
     progressbar
